@@ -34,12 +34,12 @@ public static class ArraysTester {
     /// <returns>array of doubles that are the multiples of the supplied number</returns>
     private static double[] MultiplesOf(double number, int length)
     {
-        // TODO Problem 1 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
-
-        return new double[0]; // replace this return statement with your own
+        double[] resultMultiply = new double[length]; //An array to store the result of multiplicatio
+        for (int i = 0; i < length; i++) //The for is to implement up to the size of the parameter declared in the function (length in this case)
+        {
+            resultMultiply[i] = number * (i + 1); //Performing multiplication at position i, considering the number parameter declared in the function until the length size.
+        }
+        return resultMultiply; //Return of the results of multiplications 
     }
     
     /// <summary>
@@ -52,10 +52,27 @@ public static class ArraysTester {
     /// </summary>
     private static void RotateListRight(List<int> data, int amount)
     {
-        // TODO Problem 2 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
+        int lengthList = data.Count; //Sets the size of the list
+        List<int> rotateList = new List<int>(lengthList); //List that has its size determined and where it will be filled with the rotated elements.
 
+        int startPosition = lengthList - (amount % lengthList); //Initial calculation of the position/index
+
+        //Copies elements from the calculated index
+        for (int i = startPosition; i < lengthList; i++)
+        {
+            rotateList.Add(data[i]); //Adds the elements
+        }
+
+        //Copies the remaining elements from the beginning to the calculated index
+        for (int i = 0; i < startPosition; i++)
+        {
+            rotateList.Add(data[i]);//Adds the elements
+        }
+
+        // Update the original list with rotated elements
+        for (int i = 0; i < lengthList; i++)
+        {
+            data[i] = rotateList[i];
+        }
     }
 }
