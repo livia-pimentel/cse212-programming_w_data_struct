@@ -31,15 +31,28 @@ public class TakingTurnsQueue {
     /// </summary>
     public void GetNextPerson() {
         if (_people.IsEmpty())
-            Console.WriteLine("No one in the queue.");
+            throw new InvalidOperationException("No one in the queue.");
         else {
-            Person person = _people.Dequeue();
-            if (person.Turns > 1) {
-                person.Turns -= 1;
-                _people.Enqueue(person);
-            }
+            int initialLength = _people.Length;
+            for (int i = 0; i < initialLength; i++)
+            {
+                Person person = _people.Dequeue();
+                Console.WriteLine(person.Name);
 
-            Console.WriteLine(person.Name);
+                if (person.Turns > 1) 
+                {
+                    person.Turns -= 1;
+                    _people.Enqueue(person);
+                }
+
+            // If the person has infinite turns (turns <= 0), reentry without decrementing
+                else if (person.Turns <= 0) 
+                {
+                    _people.Enqueue(person);
+                }
+
+            }
+           
         }
     }
 
