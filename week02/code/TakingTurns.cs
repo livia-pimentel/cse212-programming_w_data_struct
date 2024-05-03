@@ -79,8 +79,9 @@ public static class TakingTurns {
         players.AddPerson("Sue", 3);
         // Console.WriteLine(players);
 
-        for (int i = 0; i < 10; i++) {
-            if (i < 10){
+        for (int i = 0; i <= 10; i++) {
+            if (i <= 10)
+            {
                 players.GetNextPerson();
                 i++;
             }
@@ -113,8 +114,9 @@ public static class TakingTurns {
         players.AddPerson("Sue", 3);
         // Console.WriteLine(players);
 
-        for (int i = -3; i < 10; i++) {
-            if (i < 10)
+        
+        for (int i = -3; i <= 10; i++) {
+            if (i <= 10)
             {
                 players.GetNextPerson();
                 i++;

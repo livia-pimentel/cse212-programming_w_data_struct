@@ -33,8 +33,8 @@ public class TakingTurnsQueue {
         if (_people.IsEmpty())
             throw new InvalidOperationException("No one in the queue.");
         else {
-            int initialLength = _people.Length;
-            for (int i = 0; i < initialLength; i++)
+
+            for (int i = 0; i < _people.Length; i++)
             {
                 Person person = _people.Dequeue();
                 Console.WriteLine(person.Name);
