@@ -89,11 +89,6 @@ public static class TakingTurns {
                 break; // Exit the loop if there are no more people in the queue
         }
 
-        // for (int i = 0; i < 10; i++) {
-        //     players.GetNextPerson();
-        //     // Console.WriteLine(players);
-        // }
-
         // Defect(s) Found: 
         /*
             Has the behavior of the test 1, however 
