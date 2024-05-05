@@ -16,19 +16,20 @@
     public String Dequeue() {
         if (_queue.Count == 0) // Verify the queue is not empty
         {
-            Console.WriteLine("The queue is empty.");
+            Console.WriteLine("Erro: The queue is empty."); //Put the Error word.
             return null;
         }
 
         // Find the index of the item with the highest priority to remove
         var highPriorityIndex = 0;
-        for (int index = 1; index < _queue.Count - 1; index++) {
-            if (_queue[index].Priority >= _queue[highPriorityIndex].Priority)
-                highPriorityIndex = index;
+        for (int index = 1; index < _queue.Count; index++) {
+            if (_queue[index].Priority > _queue[highPriorityIndex].Priority) //Compares the priority of the current item with the highest known priority to date
+                highPriorityIndex = index; //Update the index of the item with the highest priority
         }
 
         // Remove and return the item with the highest priority
         var value = _queue[highPriorityIndex].Value;
+        _queue.RemoveAt(highPriorityIndex);  //Remove the item from the queue
         return value;
     }
 

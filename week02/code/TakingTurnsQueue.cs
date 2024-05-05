@@ -31,7 +31,7 @@ public class TakingTurnsQueue {
     /// </summary>
     public void GetNextPerson() {
         if (_people.IsEmpty())
-            throw new InvalidOperationException("No one in the queue.");
+            Console.WriteLine("Erro: No one in the queue.");
         else {
 
             for (int i = 0; i < _people.Length; i++)

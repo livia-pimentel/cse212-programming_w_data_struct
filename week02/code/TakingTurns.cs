@@ -137,11 +137,6 @@ public static class TakingTurns {
         players.GetNextPerson();
         // Defect(s) Found:
         /*
-            The message that appeared before was written with 
-            Console.writeline which does not point to any exceptions 
-            or errors.
-            Using InvalidOperationException will raise the 
-            exception or error and stop the program
         */
     }
 }
