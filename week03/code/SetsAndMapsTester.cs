@@ -27,35 +27,6 @@ public static class SetsAndMapsTester {
         // 94 & 49
         // 31 & 13
 
-        static void DisplayPairs(string[] words) 
-        {
-            
-            HashSet<string> wordSet = new HashSet<string>(words);
-            HashSet<string> seenWord = new HashSet<string>();
-
-            foreach (string word in words)
-            {
-                string reverse = ReverseString(word);
-                
-                // Check if the reverse of the word exists in the set and it's not already seen
-                // Also, ensure the words are not identical
-                if (wordSet.Contains(reverse) && !seenWord.Contains(word) && word != reverse)
-                {
-                    Console.WriteLine($"Pair: {reverse} & {word}");
-                    seenWord.Add(word);
-                    seenWord.Add(reverse);
-                }
-            }
-        }
-
-        static string ReverseString(string str)
-        {
-            char[] charArray = str.ToCharArray();
-            Array.Reverse(charArray);
-            return new string(charArray);
-        }
-
-        
         // Problem 2: Degree Summary
         // Sample Test Cases (may not be comprehensive) 
         Console.WriteLine("\n=========== Census TESTS ===========");
@@ -66,36 +37,6 @@ public static class SetsAndMapsTester {
         // [Assoc-voc, 1382], [7th-8th, 646], [Doctorate, 413], [Prof-school, 576],
         // [5th-6th, 333], [10th, 933], [1st-4th, 168], [Preschool, 51], [12th, 433]}
 
-
-        static Dictionary<string, int> SummarizeDegrees(string census)
-        {
-            Dictionary<string, int> degreeCounts = new Dictionary<string, int>();
-
-            //Reads the file line by line
-            using(StreamReader reader = new StreamReader(census))
-            {
-                string line;
-
-                while ((line = reader.ReadLine()) != null)
-                {
-                    // Divide the row into columns
-                    string[] columns = line.Split(',');
-
-                    // Get the fourth column education degree
-                    string degree = columns[3].Trim(); //// Adjustment as required
-
-                    if (degreeCounts.ContainsKey(degree))
-                    {
-                        degreeCounts[degree]++;
-                    }
-                    else
-                    {
-                        degreeCounts[degree] = 1;
-                    }
-                }
-            }
-            return degreeCounts;
-        }
 
         // Problem 3: Anagrams
         // Sample Test Cases (may not be comprehensive) 
@@ -110,6 +51,7 @@ public static class SetsAndMapsTester {
         Console.WriteLine(IsAnagram("tom marvolo riddle", "i am lord voldemort")); // true
         Console.WriteLine(IsAnagram("Eleven plus Two", "Twelve Plus One")); // true
         Console.WriteLine(IsAnagram("Eleven plus One", "Twelve Plus One")); // false
+
 
         // Problem 4: Maze
         Console.WriteLine("\n=========== Maze TESTS ===========");
@@ -172,6 +114,29 @@ public static class SetsAndMapsTester {
         // To display the pair correctly use something like:
         // Console.WriteLine($"{word} & {pair}");
         // Each pair of words should displayed on its own line.
+        HashSet<string> wordSet = new HashSet<string>(words);
+        HashSet<string> seenWord = new HashSet<string>();
+
+        foreach (string word in words)
+        {
+            string reverse = ReverseString(word);
+                
+            // Check if the reverse of the word exists in the set and it's not already seen
+            // Also, ensure the words are not identical
+            if (wordSet.Contains(reverse) && !seenWord.Contains(word) && word != reverse)
+            {
+                Console.WriteLine($"Pair: {reverse} & {word}");
+                seenWord.Add(word);
+                seenWord.Add(reverse);
+            }
+        }
+
+        static string ReverseString(string str)
+        {
+            char[] charArray = str.ToCharArray();
+            Array.Reverse(charArray);
+            return new string(charArray);
+        }
     }
 
     /// <summary>
@@ -188,13 +153,24 @@ public static class SetsAndMapsTester {
     /// #############
     /// # Problem 2 #
     /// #############
-    private static Dictionary<string, int> SummarizeDegrees(string filename) {
+    private static Dictionary<string, int> SummarizeDegrees(string census) {
         var degrees = new Dictionary<string, int>();
-        foreach (var line in File.ReadLines(filename)) {
+        foreach (var line in File.ReadLines(census)) {
             var fields = line.Split(",");
-            // Todo Problem 2 - ADD YOUR CODE HERE
-        }
+            
+            // Get the fourth column education degree
+            string degree = fields[3].Trim(); //Adjustment as required
 
+            //Check if the degree is already in the dictionary
+            if (degrees.ContainsKey(degree))
+            {
+                degrees[degree]++; //If yes, increment the count
+            }
+            else
+            {
+                degrees[degree] = 1; //If not, add the degree to the dictionary with 1 count
+            }
+        }
         return degrees;
     }
 
@@ -219,7 +195,54 @@ public static class SetsAndMapsTester {
     /// #############
     private static bool IsAnagram(string word1, string word2) {
         // Todo Problem 3 - ADD YOUR CODE HERE
-        return false;
+                    //Remove spaces and convert words to uppercase
+            word1 = word1.Replace(" ", "").ToUpper();
+            word2 = word2.Replace(" ", "").ToUpper();
+
+            //Check if the words have the same number of letters
+            if (word1.Length != word2.Length)
+            {
+                return false;
+            }
+
+            //Create a dictionary to count the occurrences of letters in both words
+            Dictionary<char, int> letters = new Dictionary<char, int>();
+
+            //Fills the dictionary with the letter count of the first word
+            foreach (char i in word1)
+            {
+                if (letters.ContainsKey(i))
+                {
+                    letters[i]++;
+                }
+                else
+                {
+                    letters[i] = 1; 
+                }
+            }
+
+            // Decrements the count of letters of the second word
+            foreach (char i in word2)
+            {
+                if (!letters.ContainsKey(i))
+                {
+                    return false; //If the letter does not exist in the first word, it is not an anagram
+                }
+
+                letters[i]--;
+
+                
+                //If the count becomes negative, it means that there are more occurrences of the 
+                //letter in the second word
+                if (letters[i] < 0)
+                {
+                    return false;
+                }
+            }
+
+            //If all letters have been checked and the counts are all zero, 
+            //then they are anagrams
+            return true;
     }
 
     /// <summary>
