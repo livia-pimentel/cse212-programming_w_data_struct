@@ -195,54 +195,51 @@ public static class SetsAndMapsTester {
     /// #############
     private static bool IsAnagram(string word1, string word2) {
         // Todo Problem 3 - ADD YOUR CODE HERE
-                    //Remove spaces and convert words to uppercase
-            word1 = word1.Replace(" ", "").ToUpper();
-            word2 = word2.Replace(" ", "").ToUpper();
+        //Remove spaces and convert words to uppercase
+        word1 = word1.Replace(" ", "").ToUpper();
+        word2 = word2.Replace(" ", "").ToUpper();
 
-            //Check if the words have the same number of letters
-            if (word1.Length != word2.Length)
+        //Check if the words have the same number of letters
+        if (word1.Length != word2.Length)
+        {
+            return false;
+        }
+
+        //Create a dictionary to count the occurrences of letters in both words
+        Dictionary<char, int> letters = new Dictionary<char, int>();
+
+        //Fills the dictionary with the letter count of the first word
+        foreach (char i in word1)
+        {
+            if (letters.ContainsKey(i))
+            {
+                letters[i]++;
+            }
+            else
+            {
+                letters[i] = 1; 
+            }
+        }
+
+        // Decrements the count of letters of the second word
+        foreach (char i in word2)
+        {
+            if (!letters.ContainsKey(i))
+            {
+                return false; //If the letter does not exist in the first word, it is not an anagram
+            }
+
+            letters[i]--;
+                
+            //If the count becomes negative, it means that there are more occurrences of the letter in the second word
+            if (letters[i] < 0)
             {
                 return false;
             }
+        }
 
-            //Create a dictionary to count the occurrences of letters in both words
-            Dictionary<char, int> letters = new Dictionary<char, int>();
-
-            //Fills the dictionary with the letter count of the first word
-            foreach (char i in word1)
-            {
-                if (letters.ContainsKey(i))
-                {
-                    letters[i]++;
-                }
-                else
-                {
-                    letters[i] = 1; 
-                }
-            }
-
-            // Decrements the count of letters of the second word
-            foreach (char i in word2)
-            {
-                if (!letters.ContainsKey(i))
-                {
-                    return false; //If the letter does not exist in the first word, it is not an anagram
-                }
-
-                letters[i]--;
-
-                
-                //If the count becomes negative, it means that there are more occurrences of the 
-                //letter in the second word
-                if (letters[i] < 0)
-                {
-                    return false;
-                }
-            }
-
-            //If all letters have been checked and the counts are all zero, 
-            //then they are anagrams
-            return true;
+        //If all letters have been checked and the counts are all zero, then they are anagrams
+        return true;
     }
 
     /// <summary>
