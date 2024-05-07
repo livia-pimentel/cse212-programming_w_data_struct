@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using System.Text.Json;
 
 public static class SetsAndMapsTester {
@@ -26,6 +27,35 @@ public static class SetsAndMapsTester {
         // 94 & 49
         // 31 & 13
 
+        static void DisplayPairs(string[] words) 
+        {
+            
+            HashSet<string> wordSet = new HashSet<string>(words);
+            HashSet<string> seenWord = new HashSet<string>();
+
+            foreach (string word in words)
+            {
+                string reverse = ReverseString(word);
+                
+                // Check if the reverse of the word exists in the set and it's not already seen
+                // Also, ensure the words are not identical
+                if (wordSet.Contains(reverse) && !seenWord.Contains(word) && word != reverse)
+                {
+                    Console.WriteLine($"Pair: {reverse} & {word}");
+                    seenWord.Add(word);
+                    seenWord.Add(reverse);
+                }
+            }
+        }
+
+        static string ReverseString(string str)
+        {
+            char[] charArray = str.ToCharArray();
+            Array.Reverse(charArray);
+            return new string(charArray);
+        }
+
+        
         // Problem 2: Degree Summary
         // Sample Test Cases (may not be comprehensive) 
         Console.WriteLine("\n=========== Census TESTS ===========");
