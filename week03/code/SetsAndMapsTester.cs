@@ -66,6 +66,37 @@ public static class SetsAndMapsTester {
         // [Assoc-voc, 1382], [7th-8th, 646], [Doctorate, 413], [Prof-school, 576],
         // [5th-6th, 333], [10th, 933], [1st-4th, 168], [Preschool, 51], [12th, 433]}
 
+
+        static Dictionary<string, int> SummarizeDegrees(string census)
+        {
+            Dictionary<string, int> degreeCounts = new Dictionary<string, int>();
+
+            //Reads the file line by line
+            using(StreamReader reader = new StreamReader(census))
+            {
+                string line;
+
+                while ((line = reader.ReadLine()) != null)
+                {
+                    // Divide the row into columns
+                    string[] columns = line.Split(',');
+
+                    // Get the fourth column education degree
+                    string degree = columns[3].Trim(); //// Adjustment as required
+
+                    if (degreeCounts.ContainsKey(degree))
+                    {
+                        degreeCounts[degree]++;
+                    }
+                    else
+                    {
+                        degreeCounts[degree] = 1;
+                    }
+                }
+            }
+            return degreeCounts;
+        }
+
         // Problem 3: Anagrams
         // Sample Test Cases (may not be comprehensive) 
         Console.WriteLine("\n=========== Anagram TESTS ===========");
