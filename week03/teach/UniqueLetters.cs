@@ -23,6 +23,9 @@
             }
         }
 
-        return true;
+        var set = new HashSet<char>(text);
+        return set.Count == text.Length;
+
+        // return true;
     }
 }
