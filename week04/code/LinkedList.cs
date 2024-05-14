@@ -28,8 +28,22 @@ public class LinkedList : IEnumerable<int> {
     /// </summary>
     public void InsertTail(int value) {
         // TODO Problem 1
-    }
 
+        //Create new node
+        Node newNode = new Node(value);
+        if (_tail is null) {
+            _head = newNode;
+            _tail = newNode;
+        }
+
+        // If the list is not empty, then only tail will be affected.
+        else {
+            newNode.Prev = _tail;
+            _tail.Next = newNode;
+            _tail = newNode;
+        }
+
+    }
 
     /// <summary>
     /// Remove the first node (i.e. the head) of the linked list.
