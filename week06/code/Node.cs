@@ -26,11 +26,23 @@ public class Node {
 
     public bool Contains(int value) {
         // TODO Start Problem 2
-        return false;
+        if (value == Data)
+        {
+            return true;
+        }
+        if (value < Data)
+        {
+            return Left != null && Left.Contains(value);
+        }
+        return Right != null && Right.Contains(value);
     }
 
     public int GetHeight() {
         // TODO Start Problem 4
-        return 0; // Replace this line with the correct return statement(s)
+        //Get the height of the left and right subtrees
+        int leftHeight = Left?.GetHeight() ?? 0;
+        int rightHeight = Right?.GetHeight() ?? 0;
+        //The height of the current node is 1 plus the highest height of the subtrees
+        return 1 + Math.Max(leftHeight, rightHeight); 
     }
 }
